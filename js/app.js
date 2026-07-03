@@ -201,7 +201,11 @@ function initIndexPage() {
 function initArticlePage() {
   const urlParams = new URLSearchParams(window.location.search);
   const articleId = parseInt(urlParams.get('id'), 10);
-  const article = articles.find(a => a.id === articleId);
+
+  // Search in both default and custom articles
+  const customArticles = JSON.parse(localStorage.getItem('biran_inev_articles') || '[]');
+  const allArticles = [...articles, ...customArticles];
+  const article = allArticles.find(a => a.id === articleId);
 
   const titleEl = document.getElementById('article-title');
   const dateEl = document.getElementById('article-date');
@@ -262,7 +266,9 @@ function initEditorPage() {
 
   // If editing existing article
   if (editId) {
-    const article = articles.find(a => a.id === parseInt(editId, 10));
+    const customArticles = JSON.parse(localStorage.getItem('biran_inev_articles') || '[]');
+    const allArticles = [...articles, ...customArticles];
+    const article = allArticles.find(a => a.id === parseInt(editId, 10));
     if (article && titleInput && contentArea) {
       titleInput.value = article.title;
       contentArea.value = article.content.replace(/<\/?p>/g, '\n\n').trim();

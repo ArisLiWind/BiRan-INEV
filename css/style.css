@@ -806,7 +806,13 @@ img {
   border: 0;
 }
 
-/* --- Responsive: Tablet --- */
+/* =============================================
+   Responsive Design
+   Breakpoints: 768px (tablet), 1024px (desktop),
+                1280px (large desktop), 1536px (wide)
+   ============================================= */
+
+/* --- Responsive: Tablet (>=768px) --- */
 @media (min-width: 768px) {
   .brand-name {
     font-size: 36px;
@@ -851,16 +857,118 @@ img {
   .editor-title-input {
     font-size: 32px;
   }
+
+  /* Nav bar wider padding */
+  .nav-bar {
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
+  }
+
+  /* Divider matches nav */
+  .divider {
+    margin: 0 var(--spacing-xl);
+  }
+
+  /* Login button larger on tablet */
+  .btn-login {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+
+  /* Circular buttons slightly larger */
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .btn-close-white {
+    width: 40px;
+    height: 40px;
+  }
 }
 
-/* --- Responsive: Desktop --- */
+/* --- Responsive: Desktop (>=1024px) --- */
 @media (min-width: 1024px) {
   .hero {
     max-height: 900px;
   }
 
+  /* Scale up black hole effect on desktop */
+  .hero-bg-gradient {
+    background-position: center center;
+  }
+
+  /* Override accretion disk size for larger screens */
+  .hero-bg {
+    background: #000;
+  }
+
+  .hero-bg-gradient {
+    background-image:
+      /* Star field (spread wider) */
+      radial-gradient(1px 1px at 5% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 75%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 25% 8%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 25%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 55% 85%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 45%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 65%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 95% 35%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 45%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 30% 30%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 80% 20%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 3% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 97% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 48% 92%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 38%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 18% 52%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      /* Accretion disk - larger for desktop */
+      radial-gradient(ellipse 220px 70px at 50% 50%,
+        transparent 15%,
+        rgba(232, 93, 4, 0.5) 28%,
+        rgba(244, 140, 6, 0.7) 38%,
+        rgba(255, 190, 50, 0.5) 46%,
+        rgba(244, 140, 6, 0.3) 55%,
+        transparent 68%
+      ),
+      radial-gradient(ellipse 280px 90px at 50% 50%,
+        transparent 20%,
+        rgba(200, 60, 0, 0.12) 32%,
+        rgba(232, 93, 4, 0.18) 42%,
+        rgba(255, 160, 30, 0.12) 55%,
+        transparent 72%
+      ),
+      /* Outer glow - larger */
+      radial-gradient(circle 350px at 50% 50%,
+        transparent 25%,
+        rgba(80, 30, 10, 0.06) 45%,
+        rgba(60, 20, 5, 0.03) 65%,
+        transparent 92%
+      ),
+      /* Dark center */
+      radial-gradient(circle 60px at 50% 50%,
+        #000000 55%,
+        rgba(0, 0, 0, 0.8) 75%,
+        transparent 100%
+      );
+  }
+
   .brand-name {
-    font-size: 42px;
+    font-size: 48px;
+  }
+
+  .brand-name span {
+    font-size: 18px;
+    letter-spacing: 6px;
   }
 
   .articles-section {
@@ -875,6 +983,249 @@ img {
   .hero-top {
     padding: var(--spacing-2xl) var(--spacing-3xl);
     padding-top: calc(var(--spacing-2xl) + var(--safe-top));
+  }
+
+  /* Articles: wider content, more spacing */
+  .articles-list {
+    max-width: 960px;
+    gap: var(--spacing-xl);
+  }
+
+  .article-card {
+    padding: var(--spacing-xl) var(--spacing-2xl);
+    border-radius: var(--border-radius-xl);
+  }
+
+  .article-card-title {
+    font-size: 22px;
+  }
+
+  .article-card-excerpt {
+    font-size: 15px;
+    -webkit-line-clamp: 3;
+  }
+
+  /* Detail & editor: wider */
+  .article-detail {
+    max-width: 960px;
+    padding: var(--spacing-2xl) var(--spacing-3xl);
+  }
+
+  .article-detail-title {
+    font-size: 36px;
+  }
+
+  .article-detail-content {
+    font-size: 17px;
+  }
+
+  .editor-container {
+    max-width: 960px;
+    padding: var(--spacing-2xl) var(--spacing-3xl);
+  }
+
+  .editor-title-input {
+    font-size: 36px;
+  }
+
+  .editor-content {
+    min-height: 500px;
+    font-size: 17px;
+  }
+
+  /* Nav bar desktop */
+  .nav-bar {
+    padding-left: var(--spacing-2xl);
+    padding-right: var(--spacing-2xl);
+  }
+
+  .nav-center {
+    font-size: 18px;
+  }
+
+  .divider {
+    margin: 0 var(--spacing-2xl);
+  }
+
+  /* Logged-in topbar desktop */
+  .hero-topbar-logged {
+    padding: var(--spacing-md) var(--spacing-2xl);
+  }
+
+  .topbar-brand {
+    font-size: 20px;
+  }
+
+  .topbar-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+
+  .topbar-btn-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .topbar-user {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+
+  /* Login modal larger */
+  .modal-card {
+    max-width: 420px;
+    padding: var(--spacing-2xl) var(--spacing-3xl);
+  }
+
+  .modal-title {
+    font-size: 24px;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .form-input {
+    padding: 14px 18px;
+    font-size: 16px;
+    border-radius: var(--border-radius-lg);
+  }
+
+  .modal-actions {
+    margin-top: var(--spacing-2xl);
+  }
+
+  .btn-modal-cancel,
+  .btn-modal-login {
+    padding: 14px;
+    font-size: 16px;
+    border-radius: var(--border-radius-lg);
+  }
+
+  /* Publish button larger */
+  .btn-publish {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+
+  /* Camera button larger */
+  .btn-camera {
+    width: 44px;
+    height: 44px;
+  }
+
+  .btn-camera svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* --- Responsive: Large Desktop (>=1280px) --- */
+@media (min-width: 1280px) {
+  .hero {
+    max-height: 100vh;
+  }
+
+  .brand-name {
+    font-size: 56px;
+  }
+
+  .articles-list {
+    max-width: 1100px;
+  }
+
+  .article-detail {
+    max-width: 1100px;
+  }
+
+  .editor-container {
+    max-width: 1100px;
+  }
+}
+
+/* --- Responsive: Wide Screen (>=1536px) --- */
+@media (min-width: 1536px) {
+  .brand-name {
+    font-size: 64px;
+  }
+
+  .brand-name span {
+    font-size: 20px;
+  }
+
+  .articles-section {
+    padding: var(--spacing-3xl) var(--spacing-3xl);
+  }
+
+  .articles-list {
+    max-width: 1200px;
+  }
+
+  .article-card {
+    padding: var(--spacing-2xl) var(--spacing-3xl);
+  }
+
+  .article-card-title {
+    font-size: 24px;
+  }
+
+  .article-detail {
+    max-width: 1200px;
+  }
+
+  .article-detail-title {
+    font-size: 40px;
+  }
+
+  .article-detail-content {
+    font-size: 18px;
+    line-height: 2;
+  }
+
+  .editor-container {
+    max-width: 1200px;
+  }
+
+  .editor-title-input {
+    font-size: 40px;
+  }
+
+  .editor-content {
+    min-height: 600px;
+    font-size: 18px;
+  }
+
+  /* Nav bar max-width container */
+  .nav-bar {
+    padding-left: var(--spacing-3xl);
+    padding-right: var(--spacing-3xl);
+  }
+
+  .divider {
+    margin: 0 var(--spacing-3xl);
+  }
+
+  /* Login modal max size */
+  .modal-card {
+    max-width: 460px;
+  }
+}
+
+/* --- Responsive: Ultra-wide (>=1920px) --- */
+@media (min-width: 1920px) {
+  .articles-list {
+    max-width: 1400px;
+  }
+
+  .article-detail {
+    max-width: 1400px;
+  }
+
+  .editor-container {
+    max-width: 1400px;
+  }
+
+  .brand-name {
+    font-size: 72px;
   }
 }
 
