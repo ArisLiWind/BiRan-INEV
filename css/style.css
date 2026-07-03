@@ -238,6 +238,54 @@ img {
   stroke: var(--color-white);
 }
 
+/* Language Toggle Button */
+.btn-lang {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+.btn-lang:hover,
+.btn-lang:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Language button in nav-bar (white bg pages) */
+.nav-bar .btn-lang {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--color-black);
+}
+
+.nav-bar .btn-lang:hover,
+.nav-bar .btn-lang:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Language button in topbar (logged-in hero) */
+.topbar-actions .btn-lang {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+}
+
+/* Hero Top layout adjustment for lang + close */
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Hero Bottom */
 .hero-bottom {
   position: relative;

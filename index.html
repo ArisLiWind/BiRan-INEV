@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -11,13 +11,13 @@
 
   <!-- ========== Hero Section - Guest State ========== -->
   <section class="hero" id="hero-guest">
-    <!-- Background: CSS Black Hole Gradient -->
     <div class="hero-bg">
       <div class="hero-bg-gradient"></div>
     </div>
 
-    <!-- Top: Close button -->
+    <!-- Top: Close + Lang -->
     <div class="hero-top">
+      <button class="btn-lang" aria-label="Switch Language">中文</button>
       <button class="btn-close-white" aria-label="关闭">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round">
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -34,25 +34,27 @@
       </div>
       <div class="hero-actions">
         <button class="btn-circle" aria-label="评论">C</button>
-        <button class="btn-login" id="btn-open-login">登录</button>
+        <button class="btn-login" id="btn-open-login" data-i18n="login">Login</button>
       </div>
     </div>
   </section>
 
   <!-- ========== Hero Section - Logged-in State ========== -->
   <section class="hero hidden" id="hero-logged">
-    <!-- Background: CSS Black Hole Gradient -->
     <div class="hero-bg">
       <div class="hero-bg-gradient"></div>
     </div>
 
     <!-- Top bar overlay -->
     <div class="hero-topbar-logged">
-      <div class="topbar-brand">BiRan INEV</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="topbar-brand">BiRan INEV</div>
+        <button class="btn-lang" aria-label="Switch Language">中文</button>
+      </div>
       <div class="topbar-actions">
         <button class="topbar-btn-icon" aria-label="评论">C</button>
         <button class="topbar-btn-icon" id="btn-new-post" aria-label="新建文章">+</button>
-        <button class="topbar-btn" id="btn-logout">退出</button>
+        <button class="topbar-btn" id="btn-logout" data-i18n="logout">Logout</button>
         <div class="topbar-user" id="user-avatar">AL</div>
       </div>
     </div>
@@ -69,36 +71,24 @@
 
   <!-- ========== Articles Section ========== -->
   <main class="articles-section">
-    <div class="articles-list" id="articles-list">
-      <!-- Articles rendered by JavaScript -->
-    </div>
+    <div class="articles-list" id="articles-list"></div>
   </main>
 
   <!-- ========== Login Modal ========== -->
   <div class="modal-overlay" id="login-modal">
     <div class="modal-card">
-      <h2 class="modal-title">登录</h2>
+      <h2 class="modal-title" data-i18n="login">Login</h2>
       <div class="form-group">
-        <input
-          type="text"
-          class="form-input"
-          id="input-username"
-          placeholder="用户名"
-          autocomplete="username"
-        >
+        <input type="text" class="form-input" id="input-username"
+               data-i18n-placeholder="username" placeholder="Username" autocomplete="username">
       </div>
       <div class="form-group">
-        <input
-          type="password"
-          class="form-input"
-          id="input-password"
-          placeholder="密码"
-          autocomplete="current-password"
-        >
+        <input type="password" class="form-input" id="input-password"
+               data-i18n-placeholder="password" placeholder="Password" autocomplete="current-password">
       </div>
       <div class="modal-actions">
-        <button class="btn-modal-cancel" id="btn-modal-cancel">取消</button>
-        <button class="btn-modal-login" id="btn-modal-submit">登录</button>
+        <button class="btn-modal-cancel" id="btn-modal-cancel" data-i18n="cancel">Cancel</button>
+        <button class="btn-modal-login" id="btn-modal-submit" data-i18n="login">Login</button>
       </div>
     </div>
   </div>
