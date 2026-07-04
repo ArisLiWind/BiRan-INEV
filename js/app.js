@@ -1,7 +1,7 @@
 /* ============================================
    BiRan INEV - Blog Website Application Logic
    Bilingual: English / Chinese
-   News App Style - Blue Theme
+   Minimalist B&W with Blue Accents
    ============================================ */
 
 // --- i18n: UI Strings ---
@@ -173,12 +173,7 @@ const AppState = {
   }
 };
 
-// --- Current Category Filter ---
-let currentCategory = 'all';
 
-// --- Carousel State ---
-let carouselIndex = 0;
-let carouselTimer = null;
 
 // --- Apply Language to All UI Elements ---
 function applyLanguage() {
@@ -232,32 +227,12 @@ function initIndexPage() {
       Lang.toggle();
       applyLanguage();
       renderArticles(articlesList);
-      renderFeaturedCarousel();
-      updateCategoryLabels();
     });
   });
-
-  // Category tabs
-  const categoryTabs = document.getElementById('category-tabs');
-  if (categoryTabs) {
-    categoryTabs.addEventListener('click', (e) => {
-      const tab = e.target.closest('.category-tab');
-      if (!tab) return;
-      currentCategory = tab.dataset.category;
-
-      // Update active state
-      categoryTabs.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      // Re-render articles
-      renderArticles(articlesList);
-    });
-  }
 
   // Apply language to UI
   applyLanguage();
   updateNavState();
-  renderFeaturedCarousel();
   renderArticles(articlesList);
 
   // Login modal
@@ -364,89 +339,6 @@ function initIndexPage() {
   }
 }
 
-// --- Update Category Tab Labels ---
-function updateCategoryLabels() {
-  const tabs = document.querySelectorAll('.category-tab');
-  const categoryNames = {
-    all: Lang.t('all'),
-    AI: 'AI',
-    Investment: Lang.current === 'zh' ? '投资' : 'Investment',
-    Neuroscience: Lang.current === 'zh' ? '神经科学' : 'Neuroscience',
-  };
-  tabs.forEach(tab => {
-    const cat = tab.dataset.category;
-    if (categoryNames[cat]) {
-      tab.textContent = categoryNames[cat];
-    }
-  });
-}
-
-// --- Render Featured Carousel ---
-function renderFeaturedCarousel() {
-  const slidesContainer = document.getElementById('featured-slides');
-  const dotsContainer = document.getElementById('carousel-dots');
-  if (!slidesContainer || !dotsContainer) return;
-
-  // Only show articles with cover images
-  const featured = getAllArticles().filter(a => a.cover);
-  if (featured.length === 0) {
-    document.getElementById('featured-section').style.display = 'none';
-    return;
-  }
-
-  featured.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  // Reset carousel
-  carouselIndex = 0;
-  if (carouselTimer) clearInterval(carouselTimer);
-
-  // Render slides
-  slidesContainer.innerHTML = featured.map((article, idx) => `
-    <a href="article.html?id=${article.id}" class="featured-slide">
-      <img src="${article.cover}" alt="${escapeHtml(Lang.getArticleField(article, 'title'))}" loading="lazy">
-      <div class="featured-slide-overlay">
-        <div class="featured-slide-title">${escapeHtml(Lang.getArticleField(article, 'title'))}</div>
-        <div class="featured-slide-meta">
-          <span class="featured-slide-category">${article.category || ''}</span>
-          <span>${article.date}</span>
-        </div>
-      </div>
-    </a>
-  `).join('');
-
-  // Render dots
-  dotsContainer.innerHTML = featured.map((_, idx) =>
-    `<span class="carousel-dot ${idx === 0 ? 'active' : ''}" data-index="${idx}"></span>`
-  ).join('');
-
-  // Auto-advance
-  function advanceCarousel() {
-    carouselIndex = (carouselIndex + 1) % featured.length;
-    updateCarouselPosition();
-  }
-  carouselTimer = setInterval(advanceCarousel, 5000);
-
-  // Click on dots
-  dotsContainer.addEventListener('click', (e) => {
-    const dot = e.target.closest('.carousel-dot');
-    if (!dot) return;
-    carouselIndex = parseInt(dot.dataset.index, 10);
-    updateCarouselPosition();
-    // Reset timer
-    if (carouselTimer) clearInterval(carouselTimer);
-    carouselTimer = setInterval(advanceCarousel, 5000);
-  });
-
-  function updateCarouselPosition() {
-    if (slidesContainer) {
-      slidesContainer.style.transform = `translateX(-${carouselIndex * 100}%)`;
-    }
-    dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === carouselIndex);
-    });
-  }
-}
-
 // --- Render Articles ---
 function renderArticles(container) {
   if (!container) return;
@@ -454,18 +346,10 @@ function renderArticles(container) {
   let allArticles = getAllArticles();
   allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Filter by category
-  if (currentCategory && currentCategory !== 'all') {
-    allArticles = allArticles.filter(a => a.category === currentCategory);
-  }
-
   container.innerHTML = allArticles.map(article => {
     const coverHtml = article.cover
       ? `<div class="article-card-thumb"><img src="${article.cover}" alt="${escapeHtml(Lang.getArticleField(article, 'title'))}" loading="lazy"></div>`
       : `<div class="article-card-thumb"><div class="no-cover">BiRan</div></div>`;
-    const tagHtml = article.category
-      ? `<span class="article-card-tag">${article.category}</span>`
-      : '';
 
     return `
       <a href="article.html?id=${article.id}" class="article-card page-enter">
@@ -475,7 +359,6 @@ function renderArticles(container) {
           <p class="article-card-excerpt">${escapeHtml(Lang.getArticleField(article, 'excerpt'))}</p>
           <div class="article-card-meta">
             <time class="article-card-date">${article.date}</time>
-            ${tagHtml}
           </div>
         </div>
       </a>
@@ -497,7 +380,6 @@ function initArticlePage() {
   const titleEl = document.getElementById('article-title');
   const dateEl = document.getElementById('article-date');
   const contentEl = document.getElementById('article-content');
-  const categoryEl = document.getElementById('article-category');
   const coverEl = document.getElementById('article-cover');
   const coverImgEl = document.getElementById('article-cover-img');
   const actionsEl = document.getElementById('article-actions');
@@ -518,10 +400,6 @@ function initArticlePage() {
         if (titleEl) titleEl.textContent = Lang.getArticleField(article, 'title');
         if (contentEl) contentEl.innerHTML = Lang.getArticleField(article, 'content');
         document.title = `${Lang.getArticleField(article, 'title')} - BiRan INEV`;
-        // Update category label
-        if (categoryEl) {
-          categoryEl.textContent = getCategoryLabel(article.category);
-        }
       }
     });
   });
@@ -532,7 +410,6 @@ function initArticlePage() {
     if (titleEl) titleEl.textContent = Lang.getArticleField(article, 'title');
     if (dateEl) dateEl.textContent = article.date;
     if (contentEl) contentEl.innerHTML = Lang.getArticleField(article, 'content');
-    if (categoryEl) categoryEl.textContent = getCategoryLabel(article.category);
     document.title = `${Lang.getArticleField(article, 'title')} - BiRan INEV`;
 
     // Cover image
@@ -547,7 +424,6 @@ function initArticlePage() {
     if (titleEl) titleEl.textContent = Lang.t('articleNotFound');
     if (contentEl) contentEl.innerHTML = `<p>${Lang.t('articleNotFoundMsg')}</p>`;
     if (coverEl) coverEl.style.display = 'none';
-    if (categoryEl) categoryEl.style.display = 'none';
   }
 
   // Back button
@@ -594,17 +470,6 @@ function initArticlePage() {
       });
     }
   });
-}
-
-// --- Get Category Label (i18n) ---
-function getCategoryLabel(category) {
-  if (!category) return '';
-  const labels = {
-    AI: 'AI',
-    Investment: Lang.current === 'zh' ? '投资' : 'Investment',
-    Neuroscience: Lang.current === 'zh' ? '神经科学' : 'Neuroscience',
-  };
-  return labels[category] || category;
 }
 
 // --- Page: Editor ---
