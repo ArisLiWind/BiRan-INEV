@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#FFFFFF">
   <title>Article - BiRan INEV</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,7 +12,7 @@
   <!-- ========== Navigation Bar ========== -->
   <nav class="nav-bar">
     <div class="nav-left">
-      <button class="btn-back" id="btn-back" aria-label="返回">
+      <button class="btn-back" id="btn-back" aria-label="Back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
@@ -21,30 +21,55 @@
     <span class="nav-center" data-i18n="article">Article</span>
     <div class="nav-right">
       <button class="btn-lang" aria-label="Switch Language">中文</button>
-      <button class="btn-nav-circle" id="btn-edit-article" aria-label="编辑">E</button>
-      <button class="btn-nav-icon" id="btn-edit-pencil" aria-label="编辑">
+      <button class="btn-nav-icon" id="btn-share-article" aria-label="Share">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
         </svg>
       </button>
-      <button class="btn-nav-icon" id="btn-close-article" aria-label="关闭">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-          <line x1="18" y1="6" x2="6" y2="18"></line>
+      <button class="btn-nav-icon" id="btn-edit-pencil" aria-label="Edit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
         </svg>
       </button>
     </div>
   </nav>
 
-  <!-- ========== Divider ========== -->
-  <div class="divider"></div>
+  <!-- ========== Article Cover ========== -->
+  <div class="article-hero-cover" id="article-cover">
+    <img id="article-cover-img" src="" alt="Cover">
+  </div>
 
-  <!-- ========== Article Detail ========== -->
-  <article class="article-detail page-enter">
+  <!-- ========== Article Content Card ========== -->
+  <div class="article-content-card page-enter">
+    <span class="article-detail-category" id="article-category"></span>
     <h1 class="article-detail-title" id="article-title"></h1>
     <time class="article-detail-date" id="article-date"></time>
     <div class="article-detail-content" id="article-content"></div>
-  </article>
+
+    <!-- Bottom Actions (visible when logged in) -->
+    <div class="article-bottom-actions hidden" id="article-actions">
+      <button class="btn-action btn-action-share" id="btn-share-bottom">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span>Share</span>
+      </button>
+      <button class="btn-action btn-action-edit" id="btn-edit-article">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+        </svg>
+        <span data-i18n="editPost">Edit</span>
+      </button>
+    </div>
+  </div>
 
   <script src="js/app.js"></script>
 </body>
