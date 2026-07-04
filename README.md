@@ -1,2 +1,3 @@
 # BiRan-INEV
-A storage room preparation
+# scientific and technological
+AGI LLM BCI Agent Multi-Agent Physical AI
