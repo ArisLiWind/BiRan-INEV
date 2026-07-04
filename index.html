@@ -9,6 +9,15 @@
 </head>
 <body data-page="index">
 
+  <!-- ========== Hero Background ========== -->
+  <section class="index-hero">
+    <div class="index-hero-overlay"></div>
+    <div class="index-hero-content">
+      <h1 class="index-hero-brand">BiRan INEV</h1>
+      <p class="index-hero-subtitle">必然INEV</p>
+    </div>
+  </section>
+
   <!-- ========== Top Navigation Bar ========== -->
   <nav class="top-nav">
     <div class="top-nav-left">
@@ -23,11 +32,17 @@
     </div>
     <div class="top-nav-right">
       <button class="btn-lang" aria-label="Switch Language">中文</button>
-      <!-- Guest State -->
+      <!-- Guest State: "Manage" pill button -->
       <div id="nav-guest">
-        <button class="btn-nav-login" id="btn-open-login" data-i18n="login">Login</button>
+        <button class="btn-manage" id="btn-open-login" aria-label="Manage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M5 20c0-3.87 3.13-7 7-7s7 3.13 7 7"></path>
+          </svg>
+          <span data-i18n="manage">Manage</span>
+        </button>
       </div>
-      <!-- Logged-in State -->
+      <!-- Logged-in State: "+" + avatar -->
       <div id="nav-logged" class="hidden" style="display:none;align-items:center;gap:8px;">
         <button class="btn-nav-icon" id="btn-new-post" aria-label="New Post">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">

@@ -8,6 +8,7 @@
 const i18n = {
   en: {
     login: 'Login',
+    manage: 'Manage',
     cancel: 'Cancel',
     username: 'Username',
     password: 'Password',
@@ -26,9 +27,11 @@ const i18n = {
     share: 'Share',
     all: 'All',
     featured: 'Featured',
+    minRead: 'min read',
   },
   zh: {
     login: '登录',
+    manage: '管理',
     cancel: '取消',
     username: '用户名',
     password: '密码',
@@ -47,6 +50,7 @@ const i18n = {
     share: '分享',
     all: '全部',
     featured: '精选',
+    minRead: '分钟阅读',
   }
 };
 
@@ -381,9 +385,11 @@ function initArticlePage() {
   const titleEl = document.getElementById('article-title');
   const dateEl = document.getElementById('article-date');
   const contentEl = document.getElementById('article-content');
-  const coverEl = document.getElementById('article-cover');
   const coverImgEl = document.getElementById('article-cover-img');
   const actionsEl = document.getElementById('article-actions');
+  const readTimeEl = document.getElementById('article-read-time');
+  const avatarEl = document.getElementById('article-info-avatar');
+  const heroSection = document.getElementById('article-hero');
 
   // Show/hide edit actions based on login state
   if (actionsEl && AppState.isLoggedIn) {
@@ -401,6 +407,11 @@ function initArticlePage() {
         if (titleEl) titleEl.textContent = Lang.getArticleField(article, 'title');
         if (contentEl) contentEl.innerHTML = Lang.getArticleField(article, 'content');
         document.title = `${Lang.getArticleField(article, 'title')} - BiRan INEV`;
+        // Update read time label
+        if (readTimeEl) {
+          const mins = estimateReadTime(Lang.getArticleField(article, 'content'));
+          readTimeEl.textContent = `${mins} ${Lang.t('minRead')}`;
+        }
       }
     });
   });
@@ -413,18 +424,33 @@ function initArticlePage() {
     if (contentEl) contentEl.innerHTML = Lang.getArticleField(article, 'content');
     document.title = `${Lang.getArticleField(article, 'title')} - BiRan INEV`;
 
-    // Cover image
+    // Cover image - set on the immersive hero background
     if (article.cover && coverImgEl) {
       coverImgEl.src = article.cover;
       coverImgEl.alt = Lang.getArticleField(article, 'title');
-      if (coverEl) coverEl.style.display = 'block';
-    } else if (coverEl) {
-      coverEl.style.display = 'none';
+    }
+
+    // Estimate read time
+    if (readTimeEl) {
+      const mins = estimateReadTime(Lang.getArticleField(article, 'content'));
+      readTimeEl.textContent = `${mins} ${Lang.t('minRead')}`;
+    }
+
+    // Set avatar - show user initials if logged in, otherwise "BiRan"
+    if (avatarEl) {
+      if (AppState.isLoggedIn) {
+        avatarEl.textContent = AppState.getUserInitials();
+      } else {
+        avatarEl.textContent = 'BiRan';
+      }
     }
   } else {
     if (titleEl) titleEl.textContent = Lang.t('articleNotFound');
     if (contentEl) contentEl.innerHTML = `<p>${Lang.t('articleNotFoundMsg')}</p>`;
-    if (coverEl) coverEl.style.display = 'none';
+    // Hide hero if no article found
+    if (heroSection) heroSection.style.display = 'none';
+    const infoCard = document.getElementById('article-info-card');
+    if (infoCard) infoCard.style.display = 'none';
   }
 
   // Back button
@@ -471,6 +497,17 @@ function initArticlePage() {
       });
     }
   });
+}
+
+// --- Utility: Estimate Read Time (minutes) ---
+function estimateReadTime(htmlContent) {
+  const text = (htmlContent || '').replace(/<\/?p>/g, '').replace(/<[^>]+>/g, '').trim();
+  const wordCount = text.length; // For CJK, chars approximate words
+  const cjkChars = (text.match(/[\u4e00-\u9fff\u3400-\u4dbf]/g) || []).length;
+  const enWords = Math.max(0, wordCount - cjkChars) / 5; // rough English word estimation
+  const totalWords = cjkChars + enWords;
+  const mins = Math.max(1, Math.ceil(totalWords / 300)); // ~300 chars/min reading speed
+  return mins;
 }
 
 // --- Page: Editor ---

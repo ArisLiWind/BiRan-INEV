@@ -3,54 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#000000">
   <title>Article - BiRan INEV</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="article">
 
-  <!-- ========== Navigation Bar ========== -->
-  <nav class="nav-bar">
-    <div class="nav-left">
-      <button class="btn-back" id="btn-back" aria-label="Back">
+  <!-- ========== Article Hero (Full-Screen Cover with Overlay) ========== -->
+  <section class="article-immersive-hero" id="article-hero">
+    <div class="article-immersive-hero-bg">
+      <img id="article-cover-img" src="" alt="Cover">
+    </div>
+    <div class="article-immersive-hero-overlay"></div>
+
+    <!-- Hero Top Bar: back + share + lang -->
+    <div class="article-hero-top">
+      <button class="btn-hero-back" id="btn-back" aria-label="Back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
+      <div class="article-hero-top-right">
+        <button class="btn-hero-icon" id="btn-share-article" aria-label="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+        <button class="btn-hero-lang btn-lang" aria-label="Switch Language">中文</button>
+      </div>
     </div>
-    <span class="nav-center" data-i18n="article">Article</span>
-    <div class="nav-right">
-      <button class="btn-lang" aria-label="Switch Language">中文</button>
-      <button class="btn-nav-icon" id="btn-share-article" aria-label="Share">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
-      </button>
-      <button class="btn-nav-icon hidden" id="btn-edit-pencil" aria-label="Edit">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-        </svg>
-      </button>
-    </div>
-  </nav>
 
-  <!-- ========== Article Cover ========== -->
-  <div class="article-hero-cover" id="article-cover">
-    <img id="article-cover-img" src="" alt="Cover">
+    <!-- Hero Bottom: Title + Date -->
+    <div class="article-hero-bottom">
+      <h1 class="article-hero-title" id="article-title"></h1>
+      <time class="article-hero-date" id="article-date"></time>
+    </div>
+  </section>
+
+  <!-- ========== Author / Info Card (Floating, overlapping hero & content) ========== -->
+  <div class="article-info-card" id="article-info-card">
+    <div class="article-info-avatar" id="article-info-avatar">BiRan</div>
+    <div class="article-info-stats">
+      <span class="article-info-stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span id="article-read-time">5 min read</span>
+      </span>
+      <span class="article-info-stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span id="article-views">-- views</span>
+      </span>
+    </div>
   </div>
 
   <!-- ========== Article Content ========== -->
-  <div class="article-content-card page-enter">
-    <h1 class="article-detail-title" id="article-title"></h1>
-    <time class="article-detail-date" id="article-date"></time>
-    <div class="article-detail-content" id="article-content"></div>
+  <div class="article-content-body page-enter">
+    <div class="article-content-inner">
+      <div class="article-detail-content" id="article-content"></div>
+    </div>
 
-    <!-- Bottom Actions (visible when logged in) -->
-    <div class="article-bottom-actions hidden" id="article-actions">
+    <!-- Bottom Edit Action (visible when logged in) -->
+    <div class="article-bottom-edit hidden" id="article-actions">
+      <button class="btn-action btn-action-edit" id="btn-edit-article">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+        </svg>
+        <span data-i18n="editPost">Edit</span>
+      </button>
       <button class="btn-action btn-action-share" id="btn-share-bottom">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="18" cy="5" r="3"></circle>
@@ -59,13 +87,7 @@
           <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
           <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
         </svg>
-        <span>Share</span>
-      </button>
-      <button class="btn-action btn-action-edit" id="btn-edit-article">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-        </svg>
-        <span data-i18n="editPost">Edit</span>
+        <span data-i18n="share">Share</span>
       </button>
     </div>
   </div>
