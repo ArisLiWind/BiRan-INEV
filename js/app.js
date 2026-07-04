@@ -348,12 +348,13 @@ function renderArticles(container) {
 
   container.innerHTML = allArticles.map(article => {
     const coverHtml = article.cover
-      ? `<div class="article-card-thumb"><img src="${article.cover}" alt="${escapeHtml(Lang.getArticleField(article, 'title'))}" loading="lazy"></div>`
-      : `<div class="article-card-thumb"><div class="no-cover">BiRan</div></div>`;
+      ? `<img src="${article.cover}" alt="${escapeHtml(Lang.getArticleField(article, 'title'))}" loading="lazy">`
+      : `<div class="no-cover">BiRan</div>`;
 
     return `
       <a href="article.html?id=${article.id}" class="article-card page-enter">
-        ${coverHtml}
+        <div class="article-card-thumb">${coverHtml}</div>
+        <div class="article-card-overlay"></div>
         <div class="article-card-body">
           <h3 class="article-card-title">${escapeHtml(Lang.getArticleField(article, 'title'))}</h3>
           <p class="article-card-excerpt">${escapeHtml(Lang.getArticleField(article, 'excerpt'))}</p>
