@@ -301,11 +301,12 @@ img {
 }
 
 .articles-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--spacing-md);
-  max-width: 720px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 var(--spacing-md);
 }
 
 /* Credit-Card Ratio Card - cover fills entire card, text overlays bottom */
@@ -997,6 +998,7 @@ img {
   }
 
   .articles-list {
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
   }
 
@@ -1111,7 +1113,8 @@ img {
   }
 
   .articles-list {
-    max-width: 720px;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
     gap: var(--spacing-xl);
   }
 
